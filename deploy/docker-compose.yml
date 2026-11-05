@@ -1,0 +1,21 @@
+# Lives at ~/docker/sims-tracker/docker-compose.yml on the Pi (copied there by deploy.ps1).
+services:
+  sims-tracker:
+    build:
+      context: ./src
+      dockerfile: deploy/Dockerfile
+    image: sims-tracker:latest
+    container_name: sims-tracker
+    restart: unless-stopped
+    ports:
+      # Bind to localhost + one private IP only (e.g. the Pi's Tailscale IP), never 0.0.0.0 - Kaizen has no login.
+      # KAIZEN_BIND_IP comes from the .env file next to this compose file.
+      - "127.0.0.1:8100:8000"
+      - "${KAIZEN_BIND_IP:?set KAIZEN_BIND_IP in .env (e.g. your Tailscale IP)}:8100:8000"
+    volumes:
+      - /mnt/data1/sims-tracker:/data          # database on the 4 TB drive
+      - /etc/localtime:/etc/localtime:ro       # use the Pi's time zone for "today"
+    env_file:
+      - path: .env                              # secrets later (e.g. Discord webhook)
+        required: false
+    mem_limit: 256m
