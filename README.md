@@ -85,6 +85,10 @@ Schedule them with cron (`crontab -e`):
 ```
 Push URLs go in `~/.config/pi-health.env` (`KUMA_PUSH_STORAGE`, `KUMA_PUSH_MINECRAFT`, `KUMA_PUSH_BACKUP`). Run `~/bin/pi-health.sh -v` to see the current status.
 
+## License
+
+[MIT](LICENSE) © 2026 Rogelio Alvarado-Diaz
+
 ## Parked: AI features
 
 Kaizen started as an AI workflow canvas (Claude agents, an Obsidian "LLM wiki", chat). That code is still in `backend/app` (`engine.py`, `blocks.py`, `chat.py`, `wiki.py`…) and `frontend/src/pages` (Chat, Editor, Runs, Workflows), but it's switched off: no routes in the UI, and `ENABLE_AI_AUTOMATIONS=false`. Kaizen makes no AI calls and needs no API key.
